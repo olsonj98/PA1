@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // LEAVE THIS FILE IN THE DEFAULT PACKAGE
 //  (i.e., DO NOT add 'package cs311.pa1;' or similar)
 
@@ -14,35 +16,36 @@
 public class HashTable
 {
 	// member fields and other member methods
+	private HashFunction hashFunction;
 
 	public HashTable(int size)
 	{
-		// implementation
+		hashFunction = new HashFunction(size);
 	}
 
 	public int maxLoad()
 	{
-		// implementation
+		return -1;
 	}
 
 	public float averageLoad()
 	{
-		// implementation
+		return -1;
 	}
 
 	public int size()
 	{
-		// implementation
+		return -1;
 	}
 
 	public int numElements()
 	{
-		// implementation
+		return -1;
 	}
 
 	public float loadFactor()
 	{
-		// implementation
+		return -1;
 	}
 
 	public void add(Tuple t)
@@ -52,12 +55,12 @@ public class HashTable
 
 	public ArrayList<Tuple> search(int k)
 	{
-		// implementation
+		return null;
 	}
 
 	public int search(Tuple t)
 	{
-		// implementation
+		return -1;
 	}
 
 	public void remove(Tuple t)

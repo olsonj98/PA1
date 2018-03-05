@@ -1,0 +1,10 @@
+
+public class Test {
+	public static void main(String[] args) {
+		String s1 = "abca";
+		String s2 = "efghi";
+		int shingleLength = 1;
+		BruteForceSimilarity b = new BruteForceSimilarity(s1, s2, shingleLength);
+		System.out.println("VectorLength(S) = " + b.lengthOfS1());
+	}
+}

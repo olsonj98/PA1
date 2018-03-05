@@ -1,0 +1,9 @@
+
+public class Test {
+	public static void main(String[] args) {
+		String s1 = "abcd";
+		String s2 = "efghi";
+		BruteForceSimilarity b = new BruteForceSimilarity(s1, s2, 3);
+		System.out.println(b.lengthOfS1());
+	}
+}

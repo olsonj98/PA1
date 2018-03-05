@@ -14,24 +14,30 @@
 public class Tuple
 {
 	// member fields and other member methods
+	private int key;
+	private String value;
 
 	public Tuple(int keyP, String valueP)
 	{
-		// implementation
+		key = keyP;
+		value = valueP;
 	}
 
 	public int getKey()
 	{
-		// implementation
+		return key;
 	}
 
 	public String getValue()
 	{
-		// implementation
+		return value;
 	}
 
 	public boolean equals(Tuple t)
 	{
-		// implementation
+		if (this.getKey() == t.getKey() && this.getValue() == t.getValue())
+			return true;
+		else
+			return false;
 	}
 }

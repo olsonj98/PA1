@@ -22,16 +22,16 @@ public class HashCodeSimilarity
 
 	public float lengthOfS1()
 	{
-		// implementation
+		return -1;
 	}
 
 	public float lengthOfS2()
 	{
-		// implementation
+		return -1;
 	}
 
 	public float similarity()
 	{
-		// implementation
+		return -1;
 	}
 }

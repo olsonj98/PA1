@@ -1,0 +1,8 @@
+
+public class Test {
+	public static void main(String[] args) {
+		String s1 = "abdc";
+		String s2 = null;
+		BruteForceSimilarity b = new BruteForceSimilarity(s1, s2, 2);
+	}
+}
