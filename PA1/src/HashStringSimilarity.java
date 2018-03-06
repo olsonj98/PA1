@@ -10,7 +10,7 @@ import java.util.ArrayList;
 //  (i.e., you may include java.util.ArrayList etc. here, but not junit, apache commons, google guava, etc.)
 
 /**
-* @author Hugh Potter
+* @author Tyler McAnally, Jeff Olson, Kevin Mathes
 */
 
 public class HashStringSimilarity
@@ -18,7 +18,12 @@ public class HashStringSimilarity
 	private HashTable T;
 	private HashTable S;
 	
-
+	/*
+	 * HashStringSimilarity(String s1, String s2, int sLength). sLength is the shingle length
+	 * that should be used to compute the similarity between strings s1 and s2. You may assume 
+	 * that the strings are pre-processed. I.e, all punctuation symbols, white spaces are 
+	 * removed and all letters are in lowercase.
+	 */
 	public HashStringSimilarity(String s1, String s2, int sLength)
 	{
 		T = getShingles(s1,sLength);
@@ -26,21 +31,33 @@ public class HashStringSimilarity
 		
 	}
 
+	/*
+	 * lengthOfS1() This method returns the V ectorLength of S. Type of this method must be float.
+	 */
 	public float lengthOfS1()
 	{
 		return -1;
 	}
 
+	/*
+	 * lengthOfS2() This method returns the V ectorLength of T. Type of this method must be float.
+	 */
 	public float lengthOfS2()
 	{
 		return -1;
 	}
 
+	/*
+	 * similarity() This method returns Similarity(S, T). Type of this method must be float.
+	 */
 	public float similarity()
 	{
 		return -1;
 	}
 	
+	/*
+	 * 
+	 */
 	public static HashTable getShingles(String s, int shinLength) 
 	{
 		ArrayList<String> shingles = new ArrayList<String>();
@@ -51,13 +68,16 @@ public class HashStringSimilarity
 		return addToTable(shingles);
 	}
 	
+	/*
+	 * 
+	 */
 	public static HashTable addToTable(ArrayList<String> s)
 	{
 		HashTable shingles = new HashTable(s.size());
 		Tuple t;
 		//for each element in the array list, make a tuple out of it, 
 		//then add it to the hash table
-		//I think it has to be done this way but I am not sure
+		//I think it has to be done this way but I am not sure yet
 		return shingles;
 	}
 }

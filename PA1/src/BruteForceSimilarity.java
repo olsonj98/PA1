@@ -10,7 +10,7 @@ import java.util.ArrayList;
 //  (i.e., you may include java.util.ArrayList etc. here, but not junit, apache commons, google guava, etc.)
 
 /**
-* @author Hugh Potter
+* @author Tyler McAnally, Jeff Olson, Kevin Mathes
 */
 
 public class BruteForceSimilarity
@@ -18,6 +18,12 @@ public class BruteForceSimilarity
 	private ArrayList<String> S = new ArrayList<String>();
 	private ArrayList<String> T = new ArrayList<String>();
 
+	/*
+	 * BruteForceSimilarity(String s1, String s2, int sLength). sLength is the shingle length
+	 * that should be used to compute the similarity between strings s1 and s2. You may assume 
+	 * that the strings are pre-processed. I.e, all punctuation symbols, white spaces are 
+	 * removed and all letters are in lowercase.
+	 */
 	public BruteForceSimilarity(String s1, String s2, int sLength)
 	{
 		S = getShingles(s1, sLength);
@@ -26,16 +32,25 @@ public class BruteForceSimilarity
 		printArrayList(T);
 	}
 
+	/*
+	 * lengthOfS1() This method returns the V ectorLength of S. Type of this method must be float.
+	 */
 	public float lengthOfS1()
 	{
 		return getVectorLength(S);
 	}
 
+	/*
+	 * lengthOfS2() This method returns the V ectorLength of T. Type of this method must be float.
+	 */
 	public float lengthOfS2()
 	{
 		return getVectorLength(T);
 	}
 
+	/*
+	 * similarity() This method returns Similarity(S, T). Type of this method must be float.
+	 */
 	public float similarity()
 	{
 		ArrayList<String> union = union(S, T);
@@ -53,6 +68,9 @@ public class BruteForceSimilarity
 		return similarity;
 	}
 	
+	/*
+	 * seperates the shingles and returns them
+	 */
 	public static ArrayList<String> getShingles(String s, int shinLength) {
 		ArrayList<String> shingles = new ArrayList<String>();
 		for (int i = 0; i <= s.length() - shinLength; i++)
@@ -60,6 +78,9 @@ public class BruteForceSimilarity
 		return shingles;
 	}
 	
+	/*
+	 * prints out the array for testing
+	 */
 	public static void printArrayList(ArrayList<String> arr) {
 		System.out.print("{");
 		for (int j = 0; j < arr.size(); j++)
@@ -69,6 +90,9 @@ public class BruteForceSimilarity
 				System.out.println(arr.get(j) + "}");
 	}
 	
+	/*
+	 * calculates the vector length of an array
+	 */
 	public static float getVectorLength(ArrayList<String> l) {
 		ArrayList<String> checked = new ArrayList<String>();
 		int sum = 0;
@@ -80,6 +104,9 @@ public class BruteForceSimilarity
 		return (float) Math.sqrt(sum);
 	}
 	
+	/*
+	 * I DONT KNOW< TYLER PLEASE WRITE A DESCRIPTION
+	 */
 	public static int function(ArrayList<String> list, ArrayList<String> checked, String elt) {
 		int f = 0;
 		for (int j = 0; j < list.size(); j++) {
@@ -93,6 +120,9 @@ public class BruteForceSimilarity
 		return f;
 	}
 	
+	/*
+	 * calculates the union between two arrays
+	 */
 	public static ArrayList<String> union(ArrayList<String> list1, ArrayList<String> list2) {
 		ArrayList<String> union = new ArrayList<String>();
 		for (int i = 0; i < list1.size(); i++)

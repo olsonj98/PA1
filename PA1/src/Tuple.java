@@ -8,7 +8,7 @@
 //  (i.e., you may include java.util.ArrayList etc. here, but not junit, apache commons, google guava, etc.)
 
 /**
-* @author Hugh Potter
+* @author Tyler McAnally, Jeff Olson, Kevin Mathes
 */
 
 public class Tuple
