@@ -10,61 +10,148 @@ import java.util.ArrayList;
 //  (i.e., you may include java.util.ArrayList etc. here, but not junit, apache commons, google guava, etc.)
 
 /**
-* @author Hugh Potter
+* @author Tyler McAnally, Jeff Olson, Kevin Mathes
 */
 
 public class HashTable
 {
-	// member fields and other member methods
 	private HashFunction hashFunction;
+	private ArrayList<Tuple>[] hashTable;
+	private int entries = 0;
 
+	/*
+	 * HashTable(int size) Finds the smallest prime integer p whose value is at least size. 
+	 * Creates a hash table of size p where each cell initially is NULL. It will determine
+	 * the hash function to be used in the hash table by creating the object new HashFunction(p).
+	 */
 	public HashTable(int size)
 	{
-		hashFunction = new HashFunction(size);
+		int p = findPrime(size);
+		hashFunction = new HashFunction(p);
+		hashTable = new ArrayList[p];
+		for(int i=0; i<hashTable.length; i++)
+		{
+			hashTable[i] = new ArrayList<Tuple>();
+		}	
 	}
 
+	/*
+	 * maxLoad() Returns the maximum load of the hash table. Return type is int.
+	 */
 	public int maxLoad()
 	{
+		//Maximum chain/list size (number of distinct elements in a chain/list)
 		return -1;
 	}
 
+	/*
+	 * averageLoad() Returns the average load of the hash table. Return type is float.
+	 */
 	public float averageLoad()
 	{
+		// average size of chain/list (again, distinct elements) which equals total number of distinct tuple/number of non-empty lists.
 		return -1;
 	}
 
+	/*
+	 * size() returns the current size of the hash table. Return type is int.
+	 */
 	public int size()
 	{
-		return -1;
+		return hashTable.length;
 	}
-
+	
+	/*
+	 * numElements() returns the number of distinct Tuples that are currently stored 
+	 * in the hash table. Return type is int.
+	 */
 	public int numElements()
 	{
 		return -1;
 	}
-
+	
+	/*
+	 * loadFactor() return the load factor which is numElements()/size(). Return type is float.
+	 */
 	public float loadFactor()
 	{
-		return -1;
+		return numElements()/size();
 	}
 
+	/*
+	 * add(Tuple t) Adds the tuple t to the hash table; places t in the list pointed by the 
+	 * cell hash(t.getKey()) where hash is the hash function method from the class HashFunction.
+	 * When the load factors becomes bigger than 0.7, then it (approximately) doubles the 
+	 * size of the hash table and rehashes all the elements (tuples) to the new hash table.
+	 * The size of the new hash table must be: Smallest prime integer whose value is at 
+	 * least twice the current size. Return type is void.
+	 */
 	public void add(Tuple t)
 	{
 		// implementation
 	}
 
+	/*
+	 * search(int k) returns an array list of Tuples (in the hash table) whose key equals k. 
+	 * If no such Tuples exist, returns an empty list. Note that the type of this method
+	 * must be ArrayList<Tuple>
+	 */
 	public ArrayList<Tuple> search(int k)
 	{
 		return null;
 	}
 
+	/*
+	 * search(Tuple t) returns the number of times Tuple t appears in the hash table. 
+	 * Return type is int.
+	 */
 	public int search(Tuple t)
 	{
 		return -1;
 	}
 
+	/*
+	 * remove(Tuple t) Removes one occurrence Tuple t from the hash table. 
+	 * Return type is void.
+	 */
 	public void remove(Tuple t)
 	{
 		// implementation		
+	}
+	
+	/*
+	 * Finds the first prime number greater than what is passed in.
+	 * Copied over from HashFunction.
+	 */
+	private int findPrime(int n) 
+	{
+		boolean found = false;
+		int num = n;
+		while(!found) 
+		{
+			if (isPrime(num))
+			{
+				return num;
+			}
+			num++;
+		}
+		return -1;
+		
+	}
+	
+	/*
+	 * Checks to see if the number is passed in.
+	 * Copied over from HashFunction.
+	 */
+	private boolean isPrime(int n) 
+	{
+		for(int i= 2; i<=Math.sqrt(n); i++)
+		{
+			if (n%i==0)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }
