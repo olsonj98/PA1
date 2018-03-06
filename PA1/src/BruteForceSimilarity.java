@@ -13,6 +13,8 @@ import java.util.ArrayList;
 * @author Hugh Potter
 */
 
+//test kevin
+
 public class BruteForceSimilarity
 {
 	private ArrayList<String> S = new ArrayList<String>();
