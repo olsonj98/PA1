@@ -17,7 +17,7 @@ public class HashTable
 {
 	private HashFunction hashFunction;
 	private ArrayList<Tuple>[] hashTable;
-	private int entries = 0;
+	private int distinctElements = 0;
 
 	/*
 	 * HashTable(int size) Finds the smallest prime integer p whose value is at least size. 
@@ -40,8 +40,15 @@ public class HashTable
 	 */
 	public int maxLoad()
 	{
-		//Maximum chain/list size (number of distinct elements in a chain/list)
-		return -1;
+		ArrayList<Tuple> maxLoad = hashTable[0];
+		for(int i=1; i<hashTable.length; i++)
+		{
+			if(hashTable[i] != null && hashTable[i].size() >= maxLoad.size() || maxLoad == null)
+			{
+				maxLoad = hashTable[i];
+			}
+		}
+		return maxLoad.size();
 	}
 
 	/*
@@ -50,7 +57,15 @@ public class HashTable
 	public float averageLoad()
 	{
 		// average size of chain/list (again, distinct elements) which equals total number of distinct tuple/number of non-empty lists.
-		return -1;
+		int avgLoad = 0;
+		for(int i=1; i<hashTable.length; i++)
+		{
+			if(hashTable[i] != null)
+			{
+				avgLoad += hashTable[i].size();
+			}
+		}
+		return avgLoad/hashTable.length;
 	}
 
 	/*
@@ -67,7 +82,7 @@ public class HashTable
 	 */
 	public int numElements()
 	{
-		return -1;
+		return distinctElements;
 	}
 	
 	/*
