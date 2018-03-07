@@ -40,12 +40,16 @@ public class HashTable
 	 */
 	public int maxLoad()
 	{
-		int maxLoad = 0;
-		for (int i = 0; i < table.length; i++) {
-			if (table[i].size() > maxLoad)
-				maxLoad = table[i].size();
+
+		LinkedList<Tuple> maxLoad = table[0];
+		for(int i=1; i<table.length; i++)
+		{
+			if(table[i] != null && table[i].size() >= maxLoad.size() || maxLoad == null)
+			{
+				maxLoad = table[i];
+			}
 		}
-		return maxLoad;
+		return maxLoad.size();
 	}
 
 	/*
@@ -53,15 +57,15 @@ public class HashTable
 	 */
 	public float averageLoad()
 	{
-		int load = 0;
-		int nonEmpties = 0;
-		for (int i = 0; i < table.length; i++) {
-			if (table[i].size() > 0) {
-				load += table[i].size();
-				nonEmpties++;
+		int avgLoad = 0;
+		for(int i=1; i<table.length; i++)// might need to be i=0
+		{
+			if(table[i] != null)
+			{
+				avgLoad += table[i].size();
 			}
 		}
-		return (float) load / nonEmpties;
+		return avgLoad/table.length;
 	}
 
 	/*
