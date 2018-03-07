@@ -13,21 +13,22 @@ import java.util.ArrayList;
 * @author Tyler McAnally, Jeff Olson, Kevin Mathes
 */
 
-public class BruteForceSimilarity
+public class HashStringSimilarity
 {
 	private ArrayList<String> S = new ArrayList<String>();
 	private ArrayList<String> T = new ArrayList<String>();
-
+	
 	/*
-	 * BruteForceSimilarity(String s1, String s2, int sLength). sLength is the shingle length
+	 * HashStringSimilarity(String s1, String s2, int sLength). sLength is the shingle length
 	 * that should be used to compute the similarity between strings s1 and s2. You may assume 
 	 * that the strings are pre-processed. I.e, all punctuation symbols, white spaces are 
 	 * removed and all letters are in lowercase.
 	 */
-	public BruteForceSimilarity(String s1, String s2, int sLength)
+	public HashStringSimilarity(String s1, String s2, int sLength)
 	{
-		S = Helpers.getShingles(s1, sLength);
-		T = Helpers.getShingles(s2, sLength);
+		S = Helpers.getHashShingles(s1,sLength);
+		T = Helpers.getHashShingles(s2,sLength);
+		
 	}
 
 	/*
@@ -47,12 +48,11 @@ public class BruteForceSimilarity
 	}
 
 	/*
-	 * similarity() This method returns Similarity(S, T). 
-	 * Type of this method must be float.
+	 * similarity() This method returns Similarity(S, T). Type of this method must be float.
 	 */
 	public float similarity()
 	{
-		return Helpers.getSimilarity(S, T, lengthOfS1(), lengthOfS2());
+		return -1;
 	}
-		
+	
 }

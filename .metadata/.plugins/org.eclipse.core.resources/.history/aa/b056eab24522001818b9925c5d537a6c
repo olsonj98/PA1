@@ -13,21 +13,22 @@ import java.util.ArrayList;
 * @author Tyler McAnally, Jeff Olson, Kevin Mathes
 */
 
-public class BruteForceSimilarity
+public class HashStringSimilarity
 {
 	private ArrayList<String> S = new ArrayList<String>();
 	private ArrayList<String> T = new ArrayList<String>();
-
+	
 	/*
-	 * BruteForceSimilarity(String s1, String s2, int sLength). sLength is the shingle length
+	 * HashStringSimilarity(String s1, String s2, int sLength). sLength is the shingle length
 	 * that should be used to compute the similarity between strings s1 and s2. You may assume 
 	 * that the strings are pre-processed. I.e, all punctuation symbols, white spaces are 
 	 * removed and all letters are in lowercase.
 	 */
-	public BruteForceSimilarity(String s1, String s2, int sLength)
+	public HashStringSimilarity(String s1, String s2, int sLength)
 	{
-		S = Helpers.getShingles(s1, sLength);
-		T = Helpers.getShingles(s2, sLength);
+		S = Helpers.getShingles(s1,sLength);
+		T = Helpers.getShingles(s2,sLength);
+		
 	}
 
 	/*
@@ -43,16 +44,40 @@ public class BruteForceSimilarity
 	 */
 	public float lengthOfS2()
 	{
-		return Helpers.getVectorLength(T);
+		return -1;
 	}
 
 	/*
-	 * similarity() This method returns Similarity(S, T). 
-	 * Type of this method must be float.
+	 * similarity() This method returns Similarity(S, T). Type of this method must be float.
 	 */
 	public float similarity()
 	{
-		return Helpers.getSimilarity(S, T, lengthOfS1(), lengthOfS2());
+		return -1;
 	}
-		
+	
+	/*
+	 * 
+	 */
+	public static HashTable getShingles(String s, int shinLength) 
+	{
+		ArrayList<String> shingles = new ArrayList<String>();
+		for(int i=0; i<=s.length()-shinLength; i++)
+		{
+			shingles.add(s.substring(i, i + shinLength));
+		}
+		return addToTable(shingles);
+	}
+	
+	/*
+	 * 
+	 */
+	public static HashTable addToTable(ArrayList<String> s)
+	{
+		HashTable shingles = new HashTable(s.size());
+		Tuple t;
+		//for each element in the array list, make a tuple out of it, 
+		//then add it to the hash table
+		//I think it has to be done this way but I am not sure yet
+		return shingles;
+	}
 }

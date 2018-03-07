@@ -49,6 +49,8 @@ public class BruteForceSimilarity
 	/*
 	 * similarity() This method returns Similarity(S, T). 
 	 * Type of this method must be float.
+	 * returns -1 if lengthOfS1 * lengthOfS1 = 0 
+	 * 		(prevents division by 0 exception)
 	 */
 	public float similarity()
 	{

@@ -47,12 +47,50 @@ public class BruteForceSimilarity
 	}
 
 	/*
-	 * similarity() This method returns Similarity(S, T). 
-	 * Type of this method must be float.
+	 * similarity() This method returns Similarity(S, T). Type of this method must be float.
 	 */
 	public float similarity()
 	{
-		return Helpers.getSimilarity(S, T, lengthOfS1(), lengthOfS2());
+		ArrayList<String> union = Helpers.union(S, T);
+		ArrayList<String> checked1 = new ArrayList<String>();
+		ArrayList<String> checked2 = new ArrayList<String>();
+		float similarity;
+		int sum = 0;
+		int f1 = 0, f2 = 0;
+		for (int i = 0; i < union.size(); i++) {
+			f1 = Helpers.function(S, checked1, union.get(i));
+			f2 = Helpers.function(T, checked2, union.get(i));
+			sum += f1 * f2;
+		}
+		similarity = sum / (lengthOfS1() * lengthOfS2());
+		System.out.println("Using getSimilarity(): " + 
+							getSimilarity(S, T, lengthOfS1(), lengthOfS2()));
+		return similarity;
 	}
-		
+	
+	public static float getSimilarity(ArrayList<String> s, ArrayList<String> t, 
+										float sLength, float tLength) {
+		ArrayList<String> union = Helpers.union(s, t);
+		ArrayList<String> checked1 = new ArrayList<String>();
+		ArrayList<String> checked2 = new ArrayList<String>();
+		float similarity;
+		int sum = 0;
+		int f1 = 0, f2 = 0;
+		for (int i = 0; i < union.size(); i++) {
+			f1 = Helpers.function(s, checked1, union.get(i));
+			f2 = Helpers.function(s, checked2, union.get(i));
+			sum += f1 * f2;
+		}
+		similarity = sum / (sLength * tLength);
+		return similarity;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
