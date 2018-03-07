@@ -4,13 +4,13 @@ import java.util.LinkedList;
 public class Test {
 	public static void main(String[] args) {
 		// BruteForceSimilarity tests
-		String s1 = "abca";
-		String s2 = "efghi";
-		String num1 = "1268264612";
-		String num2 = "251188438";
-		int shingleLength = 1;
+//		String s1 = "abca";
+//		String s2 = "efghi";
+//		String num1 = "1268264612";
+//		String num2 = "251188438";
+//		int shingleLength = 1;
 		
-		BruteForceSimilarity b = new BruteForceSimilarity(num1, num2, shingleLength);
+//		BruteForceSimilarity b = new BruteForceSimilarity(num1, num2, shingleLength);
 //		System.out.println("VectorLength(S) = " + b.lengthOfS1());
 //		System.out.println("VectorLength(T) = " + b.lengthOfS2());
 //		System.out.println(b.similarity());
@@ -25,6 +25,7 @@ public class Test {
 		table.add(new Tuple(2, "tiger"));
 		table.add(new Tuple(7, "frog"));
 		table.add(new Tuple(15, "deer"));
+		table.add(new Tuple(3, "dino"));
 		table.add(new Tuple(3, "dino"));
 		table.add(new Tuple(21, "ferret"));
 //		table.add(new Tuple(61, "hamster"));
@@ -42,6 +43,10 @@ public class Test {
 		System.out.println("Tuple (4:hello) removed");
 		table.remove(hello);
 		Helpers.printTable(table);
+		System.out.println();
+		table.add(new Tuple(2,"bonbon"));
+		System.out.println(table.search(2));
+		System.out.println(table.search(new Tuple(3,"dino")));
 
 		// Couldn't delete it
 		//Tuple t = new Tuple(1,"your");

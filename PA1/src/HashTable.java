@@ -144,7 +144,7 @@ public class HashTable
 		int result = 0;
 		for(int i = 0; i < table.length; i++)
 			for(int j = 0; j < table[i].size(); j++)
-				if(table[i].get(j) == t)//might need to compare key and value
+				if((table[i].get(j).getKey() == t.getKey()) && (table[i].get(j).getValue() == t.getValue()))
 					result++;
 		return result;
 	}
