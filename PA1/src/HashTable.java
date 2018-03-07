@@ -113,7 +113,18 @@ public class HashTable
 	 */
 	public ArrayList<Tuple> search(int k)
 	{
-		return null;
+		ArrayList<Tuple> result = new ArrayList<Tuple>();
+		for(int i=0; i<hashTable.length; i++)
+		{
+			for(int j=0; j<hashTable[i].size(); j++)
+			{
+				if(k == hashTable[i].get(j).getKey())
+				{
+					result.add(hashTable[i].get(j));
+				}
+			}
+		}
+		return result;
 	}
 
 	/*
@@ -122,7 +133,18 @@ public class HashTable
 	 */
 	public int search(Tuple t)
 	{
-		return -1;
+		int result = 0;
+		for(int i=0; i<hashTable.length; i++)
+		{
+			for(int j=0; j<hashTable[i].size(); j++)
+			{
+				if(hashTable[i].get(j) == t)
+				{
+					result++;
+				}
+			}
+		}
+		return result;
 	}
 
 	/*
@@ -168,5 +190,19 @@ public class HashTable
 			}
 		}
 		return true;
+	}
+	
+	/*
+	 * prints out the contents of the table when called
+	 */
+	public void printTable()
+	{
+		for(int i=0; i<hashTable.length; i++)
+		{
+			for(int j=0; j<hashTable[i].size(); j++)
+			{
+				System.out.println("Table spot: " + i + " Tuple: " + hashTable[i].get(j));
+			}
+		}
 	}
 }
