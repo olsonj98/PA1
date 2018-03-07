@@ -105,8 +105,7 @@ public class BruteForceSimilarity
 	}
 	
 	/*
-	 * Function f in project description
-	 * Number of times string elt appears in multi-set list
+	 * I DONT KNOW< TYLER PLEASE WRITE A DESCRIPTION
 	 */
 	public static int function(ArrayList<String> list, ArrayList<String> checked, String elt) {
 		int f = 0;

@@ -102,7 +102,7 @@ public class HashTable
 		int hashIndex = hashFunction.hash(t.getKey());
 		System.out.println("hashIndex: " + hashIndex);
 		table[hashIndex].add(t);
-		if (!(containsTuple(tuples, t)))
+		if (!(tuples.contains(t)))
 			tuples.add(t);
 		if (loadFactor() > 0.7) {
 			System.out.println("load factor is too big");
@@ -153,10 +153,13 @@ public class HashTable
 	 */
 	public void remove(Tuple t)
 	{
-		if (search(t) > 0)
-			for (int i = 0; i < table.length; i++)
-				if (table[i].contains(t))
-					table[i] = removeTuple(table[i], t);
+//		for(int i=0; i<hashTable.length; i++)
+//		{
+//			for(int j=0;j<hashTable[i].size(); j++)
+//			{
+//				
+//			}
+//		}
 	}
 	
 	/*
@@ -174,11 +177,23 @@ public class HashTable
 		
 	}
 	
-	/*
-	 * returns true if ArrayList of ints contains Tuple t
-	 * used by
-	 */
-	public boolean containsTuple(ArrayList<Tuple> arr, Tuple t) {
+	public void increaseTable() {
+		hashFunction = new HashFunction(table.length * 2);
+		table = new LinkedList[table.length * 2];
+		
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new LinkedList<Tuple>();
+		}
+		//addTuples();
+	}
+	
+	public void addTuples() {
+		for (int i = 0; i < tuples.size(); i++) {
+			this.add(tuples.get(i));
+		}
+	}
+	
+	public boolean containsTuple(ArrayList<Integer> arr, Tuple t) {
 		for (int i = 0; i < arr.size(); i++) {
 			if (arr.get(i).hashCode() == t.hashCode())
 				return true;
@@ -188,7 +203,7 @@ public class HashTable
 	
 	/*
 	 * Finds the first prime number greater than what is passed in.
-	 * Copied over from HashFunction since it isn't public.
+	 * Copied over from HashFunction.
 	 */
 	private int findPrime(int n) {
 		boolean found = false;
@@ -203,7 +218,7 @@ public class HashTable
 	
 	/*
 	 * Checks to see if the number is passed in.
-	 * Copied over from HashFunction since it isn't public.
+	 * Copied over from HashFunction.
 	 */
 	private boolean isPrime(int n) {
 		for(int i= 2; i<=Math.sqrt(n); i++)
@@ -211,20 +226,4 @@ public class HashTable
 				return false;
 		return true;
 	}
-	
-	/*
-	 * Used by remove to delete first instance 
-	 * of Tuple t.
-	 */
-	public LinkedList<Tuple> removeTuple(LinkedList<Tuple> list, Tuple t) {
-		if (list == null || list.size() < 1)
-			return null;
-		for (int i = 0; i < list.size(); i++)
-			if (list.get(i).hashCode() == t.hashCode()) {
-				list.remove(i);
-				break;
-			}
-		return list;
-	}
-	
 }
