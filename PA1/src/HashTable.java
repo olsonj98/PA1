@@ -29,10 +29,11 @@ public class HashTable
 		int p = findPrime(size);
 		hashFunction = new HashFunction(p);
 		hashTable = new ArrayList[p];
-		for(int i=0; i<hashTable.length; i++)
-		{
-			hashTable[i] = new ArrayList<Tuple>();
-		}	
+//		for(int i=0; i<hashTable.length; i++)
+//		{
+//			hashTable[i] = new ArrayList<Tuple>();
+//			hashTable[i].add(null);
+//		}	
 	}
 
 	/*
@@ -58,7 +59,7 @@ public class HashTable
 	{
 		// average size of chain/list (again, distinct elements) which equals total number of distinct tuple/number of non-empty lists.
 		int avgLoad = 0;
-		for(int i=1; i<hashTable.length; i++)
+		for(int i=1; i<hashTable.length; i++)// might need to be i=0
 		{
 			if(hashTable[i] != null)
 			{
@@ -103,7 +104,26 @@ public class HashTable
 	 */
 	public void add(Tuple t)
 	{
-		// implementation
+		int pos = hashFunction.hash(t.getKey());
+		for(int i=0; i<hashTable.length; i++)
+		{
+			if(hashTable[i] != null)
+			{
+				int temp = hashFunction.hash(hashTable[i].get(0).getKey());
+				if(temp == pos)
+				{
+					hashTable[i].add(t);
+					break;
+				}
+			}
+			else
+			{
+				hashTable[i] = new ArrayList<Tuple>();
+				t.
+				hashTable[i].add(t);
+				break;
+			}
+		}
 	}
 
 	/*
@@ -138,7 +158,7 @@ public class HashTable
 		{
 			for(int j=0; j<hashTable[i].size(); j++)
 			{
-				if(hashTable[i].get(j) == t)
+				if(hashTable[i].get(j) == t)//might need to compare key and value
 				{
 					result++;
 				}
@@ -153,7 +173,13 @@ public class HashTable
 	 */
 	public void remove(Tuple t)
 	{
-		// implementation		
+//		for(int i=0; i<hashTable.length; i++)
+//		{
+//			for(int j=0;j<hashTable[i].size(); j++)
+//			{
+//				
+//			}
+//		}
 	}
 	
 	/*
