@@ -38,10 +38,8 @@ public class Test {
 		System.out.println("Avg. load: " + table.averageLoad());
 		System.out.println("Load factor: " + table.loadFactor());
 		table.printTable();
-		System.out.println();
 		System.out.println("Tuple (4:hello) removed");
 		table.remove(hello);
-		table.printTable();
 
 		// Couldn't delete it
 		//Tuple t = new Tuple(1,"your");
