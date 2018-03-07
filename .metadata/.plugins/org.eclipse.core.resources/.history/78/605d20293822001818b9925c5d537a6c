@@ -54,15 +54,10 @@ public class HashTable
 	public float averageLoad()
 	{
 		int avgLoad = 0;
-		int c = 0;
 		for(int i = 0; i < table.length; i++)// might need to be i=0
-			if(table[i].size() > 0) {
+			if(table[i].size() > 0)
 				avgLoad += table[i].size();
-				c++;
-			}
-		if (c == 0)
-			return 0; 
-		else return (float) avgLoad / c;
+		return (float) avgLoad / table.length;
 	}
 
 	/*
@@ -87,8 +82,7 @@ public class HashTable
 	 */
 	public float loadFactor()
 	{
-		if (table.length == 0) return 0;
-		else return (float) numElements() / table.length;
+		return (float) numElements() / table.length;
 	}
 
 	/*

@@ -60,9 +60,7 @@ public class HashTable
 				avgLoad += table[i].size();
 				c++;
 			}
-		if (c == 0)
-			return 0; 
-		else return (float) avgLoad / c;
+		return (float) avgLoad / ;
 	}
 
 	/*
@@ -87,8 +85,7 @@ public class HashTable
 	 */
 	public float loadFactor()
 	{
-		if (table.length == 0) return 0;
-		else return (float) numElements() / table.length;
+		return (float) numElements() / table.length;
 	}
 
 	/*

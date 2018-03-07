@@ -87,8 +87,7 @@ public class HashTable
 	 */
 	public float loadFactor()
 	{
-		if (table.length == 0) return 0;
-		else return (float) numElements() / table.length;
+		return (float) numElements() / table.length;
 	}
 
 	/*
