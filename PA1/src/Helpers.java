@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+* @author Tyler McAnally, Jeff Olson, Kevin Mathes
+*/
+
 /*
  * Class of static helper methods
  */
