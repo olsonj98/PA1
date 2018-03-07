@@ -26,8 +26,8 @@ public class BruteForceSimilarity
 	 */
 	public BruteForceSimilarity(String s1, String s2, int sLength)
 	{
-		S = Helpers.getShingles(s1, sLength);
-		T = Helpers.getShingles(s2, sLength);
+		S = getShingles(s1, sLength);
+		T = getShingles(s2, sLength);
 		//printArrayList(S);
 		//printArrayList(T);
 	}

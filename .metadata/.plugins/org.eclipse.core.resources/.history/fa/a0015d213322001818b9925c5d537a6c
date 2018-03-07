@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+
+
+public class Helpers {
+
+	/*
+	 * calculates the union between two arrays
+	 */
+	public static ArrayList<String> union(ArrayList<String> list1, ArrayList<String> list2) {
+		ArrayList<String> union = new ArrayList<String>();
+		for (int i = 0; i < list1.size(); i++)
+			if (!union.contains(list1.get(i)))
+				union.add(list1.get(i));
+		for (int i = 0; i < list2.size(); i++)
+			if (!union.contains(list2.get(i)))
+				union.add(list2.get(i));
+		return union;
+	}
+	
+	/*
+	 * Function f in project description
+	 * Number of times string elt appears in multi-set list
+	 */
+	public static int function(ArrayList<String> list, ArrayList<String> checked, String elt) {
+		int f = 0;
+		for (int j = 0; j < list.size(); j++) {
+			String a = elt;
+			String b = list.get(j);
+			if (!checked.contains(elt) && a.equals(b))
+				f += 1;
+		}
+		if (!checked.contains(elt)) 
+			checked.add(elt);
+		return f;
+	}
+}

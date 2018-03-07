@@ -26,8 +26,8 @@ public class BruteForceSimilarity
 	 */
 	public BruteForceSimilarity(String s1, String s2, int sLength)
 	{
-		S = Helpers.getShingles(s1, sLength);
-		T = Helpers.getShingles(s2, sLength);
+		S = getShingles(s1, sLength);
+		T = getShingles(s2, sLength);
 		//printArrayList(S);
 		//printArrayList(T);
 	}
@@ -68,7 +68,15 @@ public class BruteForceSimilarity
 		return similarity;
 	}
 	
-	
+	/*
+	 * seperates the shingles and returns them
+	 */
+	public static ArrayList<String> getShingles(String s, int shinLength) {
+		ArrayList<String> shingles = new ArrayList<String>();
+		for (int i = 0; i <= s.length() - shinLength; i++)
+			shingles.add(s.substring(i, i + shinLength));
+		return shingles;
+	}
 	
 	
 	

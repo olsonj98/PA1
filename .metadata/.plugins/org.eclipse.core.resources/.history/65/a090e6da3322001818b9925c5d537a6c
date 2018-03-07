@@ -17,7 +17,7 @@ import java.util.LinkedList;
 public class HashTable
 {
 	private HashFunction hashFunction;
-	public LinkedList<Tuple>[] table;
+	private LinkedList<Tuple>[] table;
 	private ArrayList<Tuple> tuples = new ArrayList<Tuple>();
 
 	/*
@@ -160,4 +160,28 @@ public class HashTable
 					break;
 				}
 	}
+	
+	/*
+	 * prints out the contents of the table when called
+	 */
+	public void printTable() {
+		for (int i = 0; i < table.length; i++) {
+			System.out.print("List " + i + ": ");
+			LinkedList<Tuple> list = table[i];
+			for (int j = 0; j < list.size(); j++)
+				if (list.get(j) != null) 
+					System.out.print(list.get(j).toString() + " ");
+			System.out.println();
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -41,7 +41,7 @@ public class Test {
 		System.out.println();
 		System.out.println("Tuple (4:hello) removed");
 		table.remove(hello);
-		Helpers.printTable(table);
+		table.printTable();
 
 		// Couldn't delete it
 		//Tuple t = new Tuple(1,"your");

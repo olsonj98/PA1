@@ -17,7 +17,7 @@ import java.util.LinkedList;
 public class HashTable
 {
 	private HashFunction hashFunction;
-	public LinkedList<Tuple>[] table;
+	private LinkedList<Tuple>[] table;
 	private ArrayList<Tuple> tuples = new ArrayList<Tuple>();
 
 	/*
@@ -28,7 +28,7 @@ public class HashTable
 	public HashTable(int size)
 	{
 		hashFunction = new HashFunction(size);
-		int range = Helpers.findPrime(size);
+		int range = findPrime(size);
 		table = new LinkedList[range];
 		for (int i = 0; i < table.length; i++) {
 			table[i] = new LinkedList<Tuple>();
@@ -102,12 +102,12 @@ public class HashTable
 		int hashIndex = hashFunction.hash(t.getKey());
 		System.out.println("hashIndex: " + hashIndex);
 		table[hashIndex].add(t);
-		if (!(Helpers.containsTuple(tuples, t)))
+		if (!(containsTuple(tuples, t)))
 			tuples.add(t);
 		if (loadFactor() > 0.7) {
 			System.out.println("load factor is too big");
 			hashFunction = new HashFunction(table.length * 2);
-			int range = Helpers.findPrime(table.length * 2);
+			int range = findPrime(table.length * 2);
 			table = new LinkedList[range];
 			for (int i = 0; i < table.length; i++) {
 				table[i] = new LinkedList<Tuple>();
@@ -160,4 +160,60 @@ public class HashTable
 					break;
 				}
 	}
+	
+	/*
+	 * prints out the contents of the table when called
+	 */
+	public void printTable() {
+		for (int i = 0; i < table.length; i++) {
+			System.out.print("List " + i + ": ");
+			LinkedList<Tuple> list = table[i];
+			for (int j = 0; j < list.size(); j++)
+				if (list.get(j) != null) 
+					System.out.print(list.get(j).toString() + " ");
+			System.out.println();
+		}
+		
+	}
+	
+	/*
+	 * returns true if ArrayList of ints contains Tuple t
+	 * used by
+	 */
+	public boolean containsTuple(ArrayList<Tuple> arr, Tuple t) {
+		for (int i = 0; i < arr.size(); i++) {
+			if (arr.get(i).hashCode() == t.hashCode())
+				return true;
+		}
+		return false;
+	}
+	
+	/*
+	 * Finds the first prime number greater than what is passed in.
+	 * Copied over from HashFunction since it isn't public.
+	 */
+	private int findPrime(int n) {
+		boolean found = false;
+		int num = n;
+		while(!found) {
+			if (isPrime(num))
+				return num;
+			num++;
+		}
+		return -1;
+	}
+	
+	/*
+	 * Checks to see if the number is passed in.
+	 * Copied over from HashFunction since it isn't public.
+	 */
+	private boolean isPrime(int n) {
+		for(int i= 2; i<=Math.sqrt(n); i++)
+			if (n%i==0)
+				return false;
+		return true;
+	}
+	
+	
+	
 }

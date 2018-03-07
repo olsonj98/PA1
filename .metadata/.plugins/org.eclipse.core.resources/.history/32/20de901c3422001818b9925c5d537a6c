@@ -37,11 +37,11 @@ public class Test {
 		System.out.println("Maxload: " + table.maxLoad());
 		System.out.println("Avg. load: " + table.averageLoad());
 		System.out.println("Load factor: " + table.loadFactor());
-		Helpers.printTable(table);
+		table.printTable();
 		System.out.println();
 		System.out.println("Tuple (4:hello) removed");
 		table.remove(hello);
-		Helpers.printTable(table);
+		table.printTable();
 
 		// Couldn't delete it
 		//Tuple t = new Tuple(1,"your");

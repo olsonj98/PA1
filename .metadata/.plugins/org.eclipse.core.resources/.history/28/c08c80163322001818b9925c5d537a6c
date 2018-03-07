@@ -26,8 +26,8 @@ public class BruteForceSimilarity
 	 */
 	public BruteForceSimilarity(String s1, String s2, int sLength)
 	{
-		S = Helpers.getShingles(s1, sLength);
-		T = Helpers.getShingles(s2, sLength);
+		S = getShingles(s1, sLength);
+		T = getShingles(s2, sLength);
 		//printArrayList(S);
 		//printArrayList(T);
 	}
@@ -37,7 +37,7 @@ public class BruteForceSimilarity
 	 */
 	public float lengthOfS1()
 	{
-		return Helpers.getVectorLength(S);
+		return getVectorLength(S);
 	}
 
 	/*
@@ -45,7 +45,7 @@ public class BruteForceSimilarity
 	 */
 	public float lengthOfS2()
 	{
-		return Helpers.getVectorLength(T);
+		return getVectorLength(T);
 	}
 
 	/*
@@ -60,19 +60,49 @@ public class BruteForceSimilarity
 		int sum = 0;
 		int f1 = 0, f2 = 0;
 		for (int i = 0; i < union.size(); i++) {
-			f1 = Helpers.function(S, checked1, union.get(i));
-			f2 = Helpers.function(T, checked2, union.get(i));
+			f1 = function(S, checked1, union.get(i));
+			f2 = function(T, checked2, union.get(i));
 			sum += f1 * f2;
 		}
 		similarity = sum / (lengthOfS1() * lengthOfS2());
 		return similarity;
 	}
 	
+	/*
+	 * seperates the shingles and returns them
+	 */
+	public static ArrayList<String> getShingles(String s, int shinLength) {
+		ArrayList<String> shingles = new ArrayList<String>();
+		for (int i = 0; i <= s.length() - shinLength; i++)
+			shingles.add(s.substring(i, i + shinLength));
+		return shingles;
+	}
 	
+	/*
+	 * prints out the array for testing
+	 */
+	public static void printArrayList(ArrayList<String> arr) {
+		System.out.print("{");
+		for (int j = 0; j < arr.size(); j++)
+			if (j != arr.size() - 1)
+				System.out.print(arr.get(j) + ", ");
+			else
+				System.out.println(arr.get(j) + "}");
+	}
 	
-	
-	
-	
+	/*
+	 * calculates the vector length of an array
+	 */
+	public static float getVectorLength(ArrayList<String> l) {
+		ArrayList<String> checked = new ArrayList<String>();
+		int sum = 0;
+		int f = 0;
+		for (int i = 0; i < l.size(); i++) {
+			f = Helpers.function(l, checked, l.get(i));
+			sum += f * f;
+		}
+		return (float) Math.sqrt(sum);
+	}
 	
 	
 	
