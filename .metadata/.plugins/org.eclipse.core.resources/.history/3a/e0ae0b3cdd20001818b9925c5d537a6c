@@ -1,0 +1,28 @@
+
+public class Test {
+	public static void main(String[] args) {
+		// BruteForceSimilarity tests
+		String s1 = "abca";
+		String s2 = "efghi";
+		String num1 = "1268264612";
+		String num2 = "251188438";
+		int shingleLength = 1;
+		BruteForceSimilarity b = new BruteForceSimilarity(num1, num2, shingleLength);
+//		System.out.println("VectorLength(S) = " + b.lengthOfS1());
+//		System.out.println("VectorLength(T) = " + b.lengthOfS2());
+//		System.out.println(b.similarity());
+		
+		// HashTable tests
+		HashTable table = new HashTable(5);
+		table.add(new Tuple(4, "hello"));
+		table.add(new Tuple(8, "world"));
+		table.add(new Tuple(2, "tiger"));
+		table.add(new Tuple(7, "frog"));
+		
+		System.out.println("Number of entries in table: " + table.numElements());
+		System.out.println("Maxload: " + table.maxLoad());
+		System.out.println("Avg. load: " + table.avgerageLoad());
+		table.printTable();
+		
+	}
+}

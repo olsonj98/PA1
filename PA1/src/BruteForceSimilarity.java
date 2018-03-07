@@ -22,8 +22,8 @@ public class BruteForceSimilarity
 	{
 		S = getShingles(s1, sLength);
 		T = getShingles(s2, sLength);
-		printArrayList(S);
-		printArrayList(T);
+		//printArrayList(S);
+		//printArrayList(T);
 	}
 
 	public float lengthOfS1()

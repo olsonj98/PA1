@@ -1,0 +1,102 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+// LEAVE THIS FILE IN THE DEFAULT PACKAGE
+//  (i.e., DO NOT add 'package cs311.pa1;' or similar)
+
+// DO NOT MODIFY THE EXISTING METHOD SIGNATURES
+//  (you may, however, add member fields and additional methods)
+
+// DO NOT INCLUDE LIBRARIES OUTSIDE OF THE JAVA STANDARD LIBRARY
+//  (i.e., you may include java.util.ArrayList etc. here, but not junit, apache commons, google guava, etc.)
+
+/**
+* @author Hugh Potter
+*/
+
+public class HashTable
+{
+	// member fields and other member methods
+	private HashFunction hashFunction;
+	private LinkedList<Tuple>[] table;
+	private int entries = 0;
+
+	public HashTable(int size)
+	{
+		hashFunction = new HashFunction(size);
+		table = new LinkedList[size];
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new LinkedList<Tuple>();
+		}
+	}
+
+	public int maxLoad()
+	{
+		int maxLoad = 0;
+		for (int i = 0; i < table.length; i++) {
+			if (table[i].size() > maxLoad)
+				maxLoad = table[i].size();
+		}
+		return maxLoad;
+	}
+
+	public float averageLoad()
+	{
+		return -1;
+	}
+
+	public int size()
+	{
+		return table.length;
+	}
+
+	public int numElements()
+	{
+		return entries;
+	}
+
+	public float loadFactor()
+	{
+		
+		return -1;
+	}
+
+	public void add(Tuple t)
+	{
+		int hashIndex = hashFunction.hash(t.getKey());
+		table[hashIndex].add(t);
+		entries++;
+	}
+
+	public ArrayList<Tuple> search(int k)
+	{
+		return null;
+	}
+
+	public int search(Tuple t)
+	{
+		return -1;
+	}
+
+	public void remove(Tuple t)
+	{
+		// implementation		
+	}
+	
+	public void printTable() {
+		for (int i = 0; i < table.length; i++) {
+			System.out.print("List " + i + ": ");
+			LinkedList<Tuple> list = table[i];
+			for (int j = 0; j < list.size(); j++) {
+				if (list.get(j) != null) {
+					System.out.print(list.get(j).toString() + " ");
+				}
+				
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	
+}

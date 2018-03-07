@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 // LEAVE THIS FILE IN THE DEFAULT PACKAGE
 //  (i.e., DO NOT add 'package cs311.pa1;' or similar)
@@ -17,40 +18,80 @@ public class HashTable
 {
 	// member fields and other member methods
 	private HashFunction hashFunction;
+	private LinkedList<Tuple>[] table;
+	private ArrayList<Tuple> tuples = new ArrayList<Tuple>();
 
 	public HashTable(int size)
 	{
 		hashFunction = new HashFunction(size);
+		int range = findPrime(size);
+		table = new LinkedList[range];
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new LinkedList<Tuple>();
+		}
 	}
 
 	public int maxLoad()
 	{
-		return -1;
+		int maxLoad = 0;
+		for (int i = 0; i < table.length; i++) {
+			if (table[i].size() > maxLoad)
+				maxLoad = table[i].size();
+		}
+		return maxLoad;
 	}
 
 	public float averageLoad()
 	{
-		return -1;
+		int load = 0;
+		int nonEmpties = 0;
+		for (int i = 0; i < table.length; i++) {
+			if (table[i].size() > 0) {
+				load += table[i].size();
+				nonEmpties++;
+			}
+		}
+		return (float) load / nonEmpties;
 	}
 
 	public int size()
 	{
-		return -1;
+		return table.length;
 	}
 
 	public int numElements()
 	{
-		return -1;
+		return tuples.size();
 	}
 
 	public float loadFactor()
 	{
-		return -1;
+		return (float) numElements() / table.length;
 	}
 
 	public void add(Tuple t)
 	{
-		// implementation
+		int hashIndex = hashFunction.hash(t.getKey());
+		System.out.println("hashIndex: " + hashIndex);
+		table[hashIndex].add(t);
+		if (!(tuples.contains(t)))
+			tuples.add(t);
+//		System.out.println("added tuple: " + t.toString());
+//		System.out.println("table size: " + table.length);
+//		System.out.println("load factor: " + loadFactor());
+		if (loadFactor() > 0.7) {
+			System.out.println("load factor is too big");
+			hashFunction = new HashFunction(table.length * 2);
+			int range = findPrime(table.length * 2);
+			table = new LinkedList[range];
+			for (int i = 0; i < table.length; i++) {
+				table[i] = new LinkedList<Tuple>();
+			}
+			for (int i = 0; i < tuples.size(); i++) {
+				add(tuples.get(i));
+			}
+		}
+		
 	}
 
 	public ArrayList<Tuple> search(int k)
@@ -66,5 +107,62 @@ public class HashTable
 	public void remove(Tuple t)
 	{
 		// implementation		
+	}
+	
+	public void printTable() {
+		for (int i = 0; i < table.length; i++) {
+			System.out.print("List " + i + ": ");
+			LinkedList<Tuple> list = table[i];
+			for (int j = 0; j < list.size(); j++) {
+				if (list.get(j) != null) {
+					System.out.print(list.get(j).toString() + " ");
+				}
+				
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	public void increaseTable() {
+		hashFunction = new HashFunction(table.length * 2);
+		table = new LinkedList[table.length * 2];
+		
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new LinkedList<Tuple>();
+		}
+		//addTuples();
+	}
+	
+	public void addTuples() {
+		for (int i = 0; i < tuples.size(); i++) {
+			this.add(tuples.get(i));
+		}
+	}
+	
+	public boolean containsTuple(ArrayList<Integer> arr, Tuple t) {
+		for (int i = 0; i < arr.size(); i++) {
+			if (arr.get(i).hashCode() == t.hashCode())
+				return true;
+		}
+		return false;
+	}
+	
+	private int findPrime(int n) {
+		boolean found = false;
+		int num = n;
+		while(!found) {
+			if (isPrime(num))
+				return num;
+			num++;
+		}
+		return -1;
+	}
+	
+	private boolean isPrime(int n) {
+		for(int i= 2; i<=Math.sqrt(n); i++)
+			if (n%i==0)
+				return false;
+		return true;
 	}
 }

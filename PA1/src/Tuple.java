@@ -40,4 +40,9 @@ public class Tuple
 		else
 			return false;
 	}
+	
+	@Override
+	public String toString() {
+		return "(" + getKey() + ":" + getValue() + ")";
+	}
 }
