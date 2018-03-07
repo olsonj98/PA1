@@ -126,10 +126,16 @@ public class HashTable
 	public ArrayList<Tuple> search(int k)
 	{
 		ArrayList<Tuple> result = new ArrayList<Tuple>();
-		for(int i = 0; i < table.length; i++)
-			for(int j = 0; j < table[i].size(); j++)
-				if(k == table[i].get(j).getKey())
-					result.add(table[i].get(j));
+		for(int i=0; i<hashTable.length; i++)
+		{
+			for(int j=0; j<hashTable[i].size(); j++)
+			{
+				if(k == hashTable[i].get(j).getKey())
+				{
+					result.add(hashTable[i].get(j));
+				}
+			}
+		}
 		return result;
 	}
 
@@ -140,10 +146,16 @@ public class HashTable
 	public int search(Tuple t)
 	{
 		int result = 0;
-		for(int i = 0; i < table.length; i++)
-			for(int j = 0; j < table[i].size(); j++)
-				if(table[i].get(j) == t)//might need to compare key and value
+		for(int i=0; i<hashTable.length; i++)
+		{
+			for(int j=0; j<hashTable[i].size(); j++)
+			{
+				if(hashTable[i].get(j) == t)//might need to compare key and value
+				{
 					result++;
+				}
+			}
+		}
 		return result;
 	}
 
@@ -163,15 +175,65 @@ public class HashTable
 	}
 	
 	/*
+	 * Finds the first prime number greater than what is passed in.
+	 * Copied over from HashFunction.
+	 */
+	private int findPrime(int n) 
+	{
+		boolean found = false;
+		int num = n;
+		while(!found) 
+		{
+			if (isPrime(num))
+			{
+				return num;
+			}
+			num++;
+		}
+		return -1;
+		
+	}
+	
+	/*
+	 * Checks to see if the number is passed in.
+	 * Copied over from HashFunction.
+	 */
+	private boolean isPrime(int n) 
+	{
+		for(int i= 2; i<=Math.sqrt(n); i++)
+		{
+			if (n%i==0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/*
 	 * prints out the contents of the table when called
 	 */
+	public void printTable()
+	{
+		for(int i=0; i<hashTable.length; i++)
+		{
+			for(int j=0; j<hashTable[i].size(); j++)
+			{
+				System.out.println("Table spot: " + i + " Tuple: " + hashTable[i].get(j));
+			}
+		}
+	}
+	
 	public void printTable() {
 		for (int i = 0; i < table.length; i++) {
 			System.out.print("List " + i + ": ");
 			LinkedList<Tuple> list = table[i];
-			for (int j = 0; j < list.size(); j++)
-				if (list.get(j) != null) 
+			for (int j = 0; j < list.size(); j++) {
+				if (list.get(j) != null) {
 					System.out.print(list.get(j).toString() + " ");
+				}
+				
+			}
 			System.out.println();
 		}
 		
@@ -201,10 +263,6 @@ public class HashTable
 		return false;
 	}
 	
-	/*
-	 * Finds the first prime number greater than what is passed in.
-	 * Copied over from HashFunction.
-	 */
 	private int findPrime(int n) {
 		boolean found = false;
 		int num = n;
@@ -216,10 +274,6 @@ public class HashTable
 		return -1;
 	}
 	
-	/*
-	 * Checks to see if the number is passed in.
-	 * Copied over from HashFunction.
-	 */
 	private boolean isPrime(int n) {
 		for(int i= 2; i<=Math.sqrt(n); i++)
 			if (n%i==0)
