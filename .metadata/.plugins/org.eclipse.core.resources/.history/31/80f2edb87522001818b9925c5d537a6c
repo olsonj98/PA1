@@ -1,0 +1,164 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+// LEAVE THIS FILE IN THE DEFAULT PACKAGE
+//  (i.e., DO NOT add 'package cs311.pa1;' or similar)
+
+// DO NOT MODIFY THE EXISTING METHOD SIGNATURES
+//  (you may, however, add member fields and additional methods)
+
+// DO NOT INCLUDE LIBRARIES OUTSIDE OF THE JAVA STANDARD LIBRARY
+//  (i.e., you may include java.util.ArrayList etc. here, but not junit, apache commons, google guava, etc.)
+
+/**
+* @author Tyler McAnally, Jeff Olson, Kevin Mathes
+*/
+
+public class HashTable
+{
+	private HashFunction hashFunction;
+	public LinkedList<Tuple>[] table;
+	private ArrayList<Tuple> tuples = new ArrayList<Tuple>();
+
+	/*
+	 * HashTable(int size) Finds the smallest prime integer p whose value is at least size. 
+	 * Creates a hash table of size p where each cell initially is NULL. It will determine
+	 * the hash function to be used in the hash table by creating the object new HashFunction(p).
+	 */
+	public HashTable(int size)
+	{
+		hashFunction = new HashFunction(size);
+		int range = Helpers.findPrime(size);
+		table = new LinkedList[range];
+		for (int i = 0; i < table.length; i++) {
+			table[i] = new LinkedList<Tuple>();
+		}
+	}
+
+	/*
+	 * maxLoad() Returns the maximum load of the hash table. Return type is int.
+	 */
+	public int maxLoad()
+	{
+		int maxLoad = 0;
+		for (int i = 0; i < table.length; i++) {
+			if (table[i].size() > maxLoad)
+				maxLoad = table[i].size();
+		}
+		return maxLoad;
+	}
+
+	/*
+	 * averageLoad() Returns the average load of the hash table. Return type is float.
+	 */
+	public float averageLoad()
+	{
+		int avgLoad = 0;
+		int c = 0;
+		for(int i = 0; i < table.length; i++)// might need to be i=0
+			if(table[i].size() > 0) {
+				avgLoad += table[i].size();
+				c++;
+			}
+		if (c == 0)
+			return 0; 
+		else return (float) avgLoad / c;
+	}
+
+	/*
+	 * size() returns the current size of the hash table. Return type is int.
+	 */
+	public int size()
+	{
+		return table.length;
+	}
+	
+	/*
+	 * numElements() returns the number of distinct Tuples that are currently stored 
+	 * in the hash table. Return type is int.
+	 */
+	public int numElements()
+	{
+		return tuples.size();
+	}
+	
+	/*
+	 * loadFactor() return the load factor which is numElements()/size(). Return type is float.
+	 */
+	public float loadFactor()
+	{
+		if (table.length == 0) return 0;
+		else return (float) numElements() / table.length;
+	}
+
+	/*
+	 * add(Tuple t) Adds the tuple t to the hash table; places t in the list pointed by the 
+	 * cell hash(t.getKey()) where hash is the hash function method from the class HashFunction.
+	 * When the load factors becomes bigger than 0.7, then it (approximately) doubles the 
+	 * size of the hash table and rehashes all the elements (tuples) to the new hash table.
+	 * The size of the new hash table must be: Smallest prime integer whose value is at 
+	 * least twice the current size. Return type is void.
+	 */
+	public void add(Tuple t)
+	{
+		int hashIndex = hashFunction.hash(t.getKey());
+		table[hashIndex].add(t);
+		if (!(Helpers.containsTuple(tuples, t)))
+			tuples.add(t);
+		if (loadFactor() > 0.7) {
+			System.out.println("load factor is too big");
+			hashFunction = new HashFunction(table.length * 2);
+			int range = Helpers.findPrime(table.length * 2);
+			table = new LinkedList[range];
+			for (int i = 0; i < table.length; i++) {
+				table[i] = new LinkedList<Tuple>();
+			}
+			for (int i = 0; i < tuples.size(); i++) {
+				add(tuples.get(i));
+			}
+		}
+	}
+
+	/*
+	 * search(int k) returns an array list of Tuples (in the hash table) whose key equals k. 
+	 * If no such Tuples exist, returns an empty list. Note that the type of this method
+	 * must be ArrayList<Tuple>
+	 */
+	public ArrayList<Tuple> search(int k)
+	{
+		ArrayList<Tuple> result = new ArrayList<Tuple>();
+		for(int i = 0; i < table.length; i++)
+			for(int j = 0; j < table[i].size(); j++)
+				if(k == table[i].get(j).getKey())
+					result.add(table[i].get(j));
+		return result;
+	}
+
+	/*
+	 * search(Tuple t) returns the number of times Tuple t appears in the hash table. 
+	 * Return type is int.
+	 */
+	public int search(Tuple t)
+	{
+		int result = 0;
+		for(int i = 0; i < table.length; i++)
+			for(int j = 0; j < table[i].size(); j++)
+				if((table[i].get(j).getKey() == t.getKey()) && (table[i].get(j).getValue() == t.getValue()))
+					result++;
+		return result;
+	}
+
+	/*
+	 * remove(Tuple t) Removes one occurrence Tuple t from the hash table. 
+	 * Return type is void.
+	 */
+	public void remove(Tuple t)
+	{
+		if (search(t) > 0)
+			for (int i = 0; i < table.length; i++)
+				if (table[i].contains(t)) {
+					table[i] = Helpers.removeTuple(table[i], t);
+					break;
+				}
+	}
+}

@@ -17,6 +17,8 @@ public class HashStringSimilarity
 {
 	private ArrayList<String> S = new ArrayList<String>();
 	private ArrayList<String> T = new ArrayList<String>();
+	private long startTime = 0;
+	private long endTime = 0;
 	
 	/*
 	 * HashStringSimilarity(String s1, String s2, int sLength). sLength is the shingle length
@@ -26,9 +28,8 @@ public class HashStringSimilarity
 	 */
 	public HashStringSimilarity(String s1, String s2, int sLength)
 	{
-		S = Helpers.getHashShingles(s1,sLength);
-		T = Helpers.getHashShingles(s2,sLength);
-		
+		S = Helpers.getShingles(s1, sLength);
+		T = Helpers.getShingles(s2, sLength);
 	}
 
 	/*
@@ -52,7 +53,17 @@ public class HashStringSimilarity
 	 */
 	public float similarity()
 	{
-		return Helpers.getSimilarity(S, T, lengthOfS1(), lengthOfS2());
+		startTime = System.nanoTime();
+		float sim = Helpers.getSimilarity(S, T, lengthOfS1(), lengthOfS2());
+		endTime = System.nanoTime();
+		return sim;
+	}
+	
+	/*
+	 * returns runtime in nanoseconds
+	 */
+	public long runtime() {
+		return endTime - startTime;
 	}
 	
 }

@@ -17,6 +17,8 @@ public class BruteForceSimilarity
 {
 	private ArrayList<String> S = new ArrayList<String>();
 	private ArrayList<String> T = new ArrayList<String>();
+	private long startTime = 0;
+	private long endTime = 0;
 
 	/*
 	 * BruteForceSimilarity(String s1, String s2, int sLength). sLength is the shingle length
@@ -35,7 +37,7 @@ public class BruteForceSimilarity
 	 */
 	public float lengthOfS1()
 	{
-		return Helpers.getVectorLength(S);
+		return Helpers.bruteVectorLength(S);
 	}
 
 	/*
@@ -43,7 +45,7 @@ public class BruteForceSimilarity
 	 */
 	public float lengthOfS2()
 	{
-		return Helpers.getVectorLength(T);
+		return Helpers.bruteVectorLength(T);
 	}
 
 	/*
@@ -52,7 +54,17 @@ public class BruteForceSimilarity
 	 */
 	public float similarity()
 	{
-		return Helpers.getSimilarity(S, T, lengthOfS1(), lengthOfS2());
+		startTime = System.nanoTime();
+		float sim = Helpers.bruteSimilarity(S, T, lengthOfS1(), lengthOfS2());
+		endTime = System.nanoTime();
+		return sim;
+	}
+	
+	/*
+	 * returns runtime in nanoseconds
+	 */
+	public long runtime() {
+		return endTime - startTime;
 	}
 		
 }

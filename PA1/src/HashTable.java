@@ -102,12 +102,10 @@ public class HashTable
 	public void add(Tuple t)
 	{
 		int hashIndex = hashFunction.hash(t.getKey());
-		System.out.println("hashIndex: " + hashIndex);
 		table[hashIndex].add(t);
 		if (!(Helpers.containsTuple(tuples, t)))
 			tuples.add(t);
 		if (loadFactor() > 0.7) {
-			System.out.println("load factor is too big");
 			hashFunction = new HashFunction(table.length * 2);
 			int range = Helpers.findPrime(table.length * 2);
 			table = new LinkedList[range];

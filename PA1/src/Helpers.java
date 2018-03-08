@@ -27,6 +27,7 @@ public class Helpers {
 	/*
 	 * Function f(S, i) in project description
 	 * Number of times string elt appears in multi-set list
+	 * to be used by HashStringSimilarity and HashCodeSimilarity
 	 */
 	public static int function(ArrayList<String> list, ArrayList<String> checked, String elt) {
 		int f = 0;
@@ -39,6 +40,61 @@ public class Helpers {
 		if (!checked.contains(elt)) 
 			checked.add(elt);
 		return f;
+	}
+	
+	/*
+	 * Function f(S, i) in project description
+	 * Number of times string elt appears in multi-set list
+	 * to be used by BruteForceSimilarity
+	 */
+	public static int bruteForce(ArrayList<String> list, ArrayList<String> checked, String elt) {
+		int f = 0;
+		for (int j = 0; j < list.size(); j++) {
+			for (int k = 0; k < elt.length(); k++) {
+				if (!checked.contains(elt) && elt.charAt(k) == list.get(j).charAt(k))
+					f += 1;
+			}
+		}
+		if (!checked.contains(elt)) 
+			checked.add(elt);
+		return f;
+	}
+	
+	/*
+	 * calculates the vector length of an array
+	 */
+	public static float bruteVectorLength(ArrayList<String> l) {
+		ArrayList<String> checked = new ArrayList<String>();
+		int sum = 0;
+		int f = 0;
+		for (int i = 0; i < l.size(); i++) {
+			f = Helpers.bruteForce(l, checked, l.get(i));
+			sum += f * f;
+		}
+		return (float) Math.sqrt(sum);
+	}
+	
+	/*
+	 * gets similarity of two sets of strings
+	 * returns -1 if lengthOfS1 * lengthOfS1 = 0 
+	 * 		(prevents division by 0 exception)
+	 */
+	public static float bruteSimilarity(ArrayList<String> s, ArrayList<String> t, 
+			float sLength, float tLength) {
+		ArrayList<String> union = Helpers.union(s, t);
+		ArrayList<String> checked1 = new ArrayList<String>();
+		ArrayList<String> checked2 = new ArrayList<String>();
+		float similarity;
+		int sum = 0;
+		int f1 = 0, f2 = 0;
+		for (int i = 0; i < union.size(); i++) {
+			f1 = Helpers.bruteForce(s, checked1, union.get(i));
+			f2 = Helpers.bruteForce(t, checked2, union.get(i));
+			sum += f1 * f2;
+		}
+		if (sLength * tLength == 0) similarity = -1;
+		else similarity = sum / (sLength * tLength);
+		return similarity;
 	}
 	
 	/*
@@ -84,7 +140,6 @@ public class Helpers {
 		ArrayList<String> shingles = new ArrayList<String>();
 		for (int i = 0; i <= s.length() - shinLength; i++) {
 			int code = s.substring(i, i + shinLength).hashCode();
-//			System.out.println("hashcode: " + code);
 			shingles.add(String.valueOf(code));
 		}
 		return shingles;

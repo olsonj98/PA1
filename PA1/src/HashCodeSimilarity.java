@@ -15,8 +15,10 @@ import java.util.ArrayList;
 
 public class HashCodeSimilarity
 {
-	private HashTable S;
-	private HashTable T;
+	private ArrayList<String> S = new ArrayList<String>();
+	private ArrayList<String> T = new ArrayList<String>();
+	private long startTime = 0;
+	private long endTime = 0;
 
 	/*
 	 * HashCodeSimilarity(String s1, String s2, int sLength). sLength is the shingle length
@@ -26,8 +28,8 @@ public class HashCodeSimilarity
 	 */
 	public HashCodeSimilarity(String s1, String s2, int sLength)
 	{
-		S = getShingles(s1, sLength);
-		T = getShingles(s2, sLength);
+		S = Helpers.getHashShingles(s1,sLength);
+		T = Helpers.getHashShingles(s2,sLength);
 	}
 
 	/*
@@ -35,7 +37,7 @@ public class HashCodeSimilarity
 	 */
 	public float lengthOfS1()
 	{
-		return getVectorLength(S);
+		return Helpers.getVectorLength(S);
 	}
 
 	/*
@@ -43,7 +45,7 @@ public class HashCodeSimilarity
 	 */
 	public float lengthOfS2()
 	{
-		return getVectorLength(T);
+		return Helpers.getVectorLength(T);
 	}
 
 	/*
@@ -51,49 +53,17 @@ public class HashCodeSimilarity
 	 */
 	public float similarity()
 	{
-		return -1;
+		startTime = System.nanoTime();
+		float sim = Helpers.getSimilarity(S, T, lengthOfS1(), lengthOfS2());
+		endTime = System.nanoTime();
+		return sim;
 	}
 	
 	/*
-	 * 
+	 * returns runtime in nanoseconds
 	 */
-	public static HashTable getShingles(String s, int shinLength) {
-		HashTable shingles = new HashTable(5);	// will eventually change the size of hashtable
-		for (int i = 0; i <= s.length() - shinLength; i++){
-			int hashVal = 5;	// not sure which hash function to call
-			Tuple t = new Tuple(hashVal, s.substring(i, i + shinLength));
-			shingles.add(t);
-		}
-		return shingles;
+	public long runtime() {
+		return endTime - startTime;
 	}
 	
-	/*
-	 * 
-	 */
-	public static float getVectorLength(HashTable l) {
-		ArrayList<String> checked = new ArrayList<String>();
-		int sum = 0;
-		int f = 0;
-		for (int i = 0; i < l.size(); i++) {
-//			f = function(l, checked, l.get(i));
-//			sum += f * f;
-		}
-		return (float) Math.sqrt(sum);
-	}
-	
-	/*
-	 * 
-	 */
-	public static int function(ArrayList<String> list, ArrayList<String> checked, String elt) {
-		int f = 0;
-		for (int j = 0; j < list.size(); j++) {
-			String a = elt;
-			String b = list.get(j);
-			if (!checked.contains(elt) && a.equals(b))
-				f += 1;
-		}
-		if (!checked.contains(elt)) 
-			checked.add(elt);
-		return f;
-	}
 }
